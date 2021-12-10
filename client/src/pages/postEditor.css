@@ -1,0 +1,14 @@
+.postEditor {
+  min-height: 100vh;
+  background: #f3904f; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #f3904f,
+    #3b4371
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #f3904f,
+    #3b4371
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

@@ -1,0 +1,10 @@
+.loginPage {
+  min-height: 100vh;
+  background: #000000;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(31, 48, 94, 1) 92%
+  );
+}
