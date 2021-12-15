@@ -5,7 +5,7 @@ const Post = (props) => {
     const p = props.post
 
     return (
-        <Card  bg="dark" text="light" className="text-center ">
+        <Card  bg="dark" text="light" className="text-center" style={{maxWidth: '385px'}}>
             <Card.Img className="p-3" variant="top" src={postImg} style={{height: "auto"}}/>
             <Card.Body>
                 <Card.Title>{p.title}</Card.Title>

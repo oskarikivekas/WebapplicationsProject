@@ -1,0 +1,9 @@
+.carousel {
+  width: auto;
+  height: 500px;
+  margin: auto;
+}
+
+.carousel-item {
+  max-height: 500px;
+}
