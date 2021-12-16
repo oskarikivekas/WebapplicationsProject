@@ -84,7 +84,7 @@ const PostEditor = () => {
                 {editormode  && <Button onClick={createHandler}>Post snippet</Button>}            
                 </Col>
                 <Col className="m-2" xxl={3} lg={4} md={12}>
-                {(postId === "new" && user || post.creator === user.username) && <Button onClick={handleEditor}>Editor mode</Button>}
+                {(postId === "new" && user || post.creator === user?.username) && <Button onClick={handleEditor}>Editor mode</Button>}
                 
                 </Col>
                 
