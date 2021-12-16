@@ -9,19 +9,15 @@ const postsSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        desc:{
+        code:{
             type: String,
             required: true
         },
-        
-        comments:[{
-            type: Object,
-            required: false
-        }],
-        /* Likes are unique usernames for easy implementation, could be changed later */
         likes: {
-            type: Array
-        }
+            type: Array,
+            required: false
+        },
+        
     },
     {timestamps: true}       
 );
@@ -29,3 +25,4 @@ const postsSchema = new mongoose.Schema({
 const Post = mongoose.model('posts', postsSchema);
 
 module.exports = {Post};
+

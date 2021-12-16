@@ -26,7 +26,7 @@ const NavBar = (props) => {
                     {user &&  <Nav.Link onClick={logoutHandler} >Log Out</Nav.Link>}
                     {user &&    <NavDropdown title="Menu" id="collasible-nav-dropdown">
                                 <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
-                                <NavDropdown.Item as={Link} to="/editor">Create new Snippet</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/editor/new">Create new Snippet</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="https://github.com/oskarikivekas/WebapplicationsProject">GitHub</NavDropdown.Item>
                                 </NavDropdown> }

@@ -12,7 +12,11 @@ const commentsSchema = new mongoose.Schema({
         desc:{
             type: String,
             required: true
-        }
+        },
+        postid: {
+            type: String, 
+            required: true
+        },
         
     },
     {timestamps: true}       

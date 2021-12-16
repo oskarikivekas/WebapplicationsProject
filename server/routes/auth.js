@@ -80,9 +80,14 @@ router.post('/login', body("username").trim().escape(), body("password").trim(),
           id: user._id,
           username: user.username
         }
-        var token = jwt.sign(jwtuser, process.env.SECRET, {expiresIn: 1000});
-       
-        res.json({success: true, token});
+        var token = jwt.sign(jwtuser, process.env.SECRET, {expiresIn: 10000});
+
+        
+        const userdata = {
+          username: user.username,
+          profileImg: user.profileImg
+        }
+        res.json({success: true, token, user: userdata});
   
       } else{
         
@@ -93,11 +98,10 @@ router.post('/login', body("username").trim().escape(), body("password").trim(),
     }
   })
 
-  /* Validate token */
-  router.post('/verify', passport.authenticate('jwt', { session: false}), (req, res, next) => {
-    res.json(req.user);
-  })
-
+  router.get('/test', passport.authenticate('jwt', { session: false}), (req, res ) => {
+    console.log(req.headers);
+    res.json({user: req.user});
+})
 
 
   module.exports = router;

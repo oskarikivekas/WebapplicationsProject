@@ -1,39 +1,100 @@
-import { useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap';
+import { useContext, useEffect, useState } from 'react'
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { useLocation } from "react-router";
 import Editor from '../components/Editor'
 import NavBar from '../components/NavBar'
-import Post from '../components/Post';
 import CommentSection from '../components/CommentSection';
+import { Context } from "../context/Context";
+import TextareaAutosize from 'react-textarea-autosize'
+import { useNavigate } from 'react-router-dom'
 import './postEditor.css'
+import axios from 'axios';
 
-const PostEditor = (props) => {
-    const [user, setUser] = useState({user: true});
+/* NEEDS FIXING -> Logging out when in editormode tries to find user.username which is null.username causing fatal error. Fixing if time... may need some structural changes */
 
-    const userHandler = () => {
-        console.log(user);
-        setUser(prevUser => !prevUser);
+const PostEditor = () => {
+    const navigate = useNavigate();
+    const {user} = useContext(Context);
+    const location = useLocation();
+    const postId = location.pathname.split('/')[2]
+    const [post, setPost] = useState({})
+    const [editormode, setEditorMode] = useState(false);
+    const [code, setCode] = useState("")
+    const [title, setTitle] = useState("")
+
+    useEffect(() => {   
+        const getPost = async () => {
+            const res = await axios('/api/posts/'+ postId);
+            setPost(res.data);
+            setCode(res.data.code);
+           
+            /* handle incorrect post id -> redirect to 404 */
+        };
+        getPost()
+    }, [postId])
+
+
+
+    const deleteHandler = async () => {
+        console.log("delete")
     }
-    
-    const code = ["asdpåkasfpkåfaskpåasfåpasfå aåpsfkaåspfk asåfpkas åfpk", "pasdgfapsfon apsofnaspof hnaspfoa paosfapsfapfbaspfib ", " apsoansfpåa iapsfn asso napapapansdfo oasnavpoasnfvasvasvåv åpoasnvasv"]
 
+
+    const createHandler = async () => {
+        console.log("post")
+        const config = {
+            headers: {
+                "content-type": "application/json",
+                "authorization": "Bearer " + localStorage.getItem('auth_token')
+              }
+        }
+        console.log(localStorage.getItem('auth_token'))
+        try {
+            await axios.post('/api/posts', {
+                title: title,
+                creator: user.username,
+                code: code,
+            }, config )
+            
+        } catch (err) {
+            
+        }
+    
+    } 
+
+    const handleEditor = () => setEditorMode(m => !m)
 
     return (
        <div className="postEditor">
-        <NavBar userHandler={userHandler} user={user}></NavBar>   
+        <NavBar ></NavBar>   
         <Container fluid="md" className="mt-2" >
+            
+            {/* {post.creator === user.username && <Button onClick={deleteHandler}>Delete</Button>} */}
             <Row className="align-items-center" >
-                <Col className="p-2" xxl={3} lg={4} md={12} > 
-                    <Editor code={code[0]}></Editor>
-                </Col>
-                <Col className="p-2" xxl={3} lg={4} md={12} > 
-                    <Editor code={code[1]}></Editor>
-                </Col>
-                <Col className="p-2" xxl={3} lg={4} md={12} > 
-                    <Editor code={code[2]}></Editor>
+                <Col className="m-2" xxl={3} lg={4} md={12} > 
+                    {editormode ? 
+                    (<TextareaAutosize style={{minWidth: "100vh", border: "none", resize: 'none'}} value={code} onChange={(e) => setCode(e.target.value)}/>)
+                     : (<Editor code={code}></Editor>) }
+                     
+                     
                 </Col>
             </Row>
-            <Row className="" border-dark>
-                <CommentSection ></CommentSection>
+            <Row className="align-items-center">
+                <Col className="m-2" xxl={3} lg={4} md={12}>
+                {editormode  && <Button onClick={createHandler}>Post snippet</Button>}            
+                </Col>
+                <Col className="m-2" xxl={3} lg={4} md={12}>
+                {(postId === "new" && user || post.creator === user.username) && <Button onClick={handleEditor}>Editor mode</Button>}
+                
+                </Col>
+                
+            </Row>
+               
+            
+            
+            
+            <Row className="">
+                <CommentSection likes={post.likes} ></CommentSection>
             </Row>
         </Container> 
        </div>

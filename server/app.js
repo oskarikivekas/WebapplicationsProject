@@ -24,7 +24,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/images", express.static(path.join(__dirname, "/images")));
-
+app.use(passport.initialize());
 
 
 const storage = multer.diskStorage({
@@ -50,7 +50,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/test', testRouter)
 app.use('/api/auth', authRouter);
 
-app.use(passport.initialize());
+
 
 
 // enable cors

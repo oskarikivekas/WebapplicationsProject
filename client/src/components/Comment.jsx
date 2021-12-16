@@ -1,18 +1,18 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-const Comment = (props) => {
+const Comment = ({data}) => {
     return (
         <Card>
-            <Card.Header>Sam Baggins</Card.Header>
+            <Card.Header>{data.creator}</Card.Header>
             <Card.Body>
             <blockquote className="blockquote mb-0">
                 <p>
                 {' '}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-                erat a ante.{' '}
+                {data.desc}
+                {' '}
                 </p>
                 <footer className="blockquote-footer">
-                Someone famous in <cite title="Source Title">Source Title</cite>
+                {new Date(data.createdAt).toDateString()}
                 </footer>
             </blockquote>
             </Card.Body>
