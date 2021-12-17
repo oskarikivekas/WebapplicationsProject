@@ -97,7 +97,7 @@ const PostEditor = () => {
                     {(editormode && (postId === "new")) && <h3>Give your snippet a title</h3>}
                     {(editormode && (postId === "new")) && <textarea value={title} onChange={(e) => setTitle(e.target.value)}/>}
                     <br />
-                    {(postId == "new" ) ? (<h3>Code</h3>) : <h2>{post.title}</h2>}
+                    {(postId === "new" ) ? (<h3>Code</h3>) : <h2>{post.title}</h2>}
                 </Col>
             <Row>
                 <Col>

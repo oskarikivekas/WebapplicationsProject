@@ -14,6 +14,7 @@ const Login = () => {
     const { state } = useLocation();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(false);
 
     const loginHandler = async (e) => {
         e.preventDefault();
@@ -28,6 +29,7 @@ const Login = () => {
         
         } catch (err) {
             dispatch({type: "LOGIN_FAILED"});
+            setError(true);
         }
     }
 
@@ -46,6 +48,7 @@ const Login = () => {
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
                         </Form.Group>
+                        <p>{error && "Incorrect information try again"}</p>
                         <Button variant="primary btb-block" type="submit" disabled={fetching}>
                             Login
                         </Button>

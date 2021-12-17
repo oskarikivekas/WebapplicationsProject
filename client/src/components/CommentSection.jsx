@@ -5,7 +5,6 @@ import { ListGroup, ListGroupItem, ToggleButton, Button } from 'react-bootstrap'
 import {FcLike} from "react-icons/fc"
 import axios from 'axios';
 import Comment from './Comment'
-import TextareaAutosize from 'react-textarea-autosize'
 
 
 const CommentSection = () => {
@@ -46,13 +45,10 @@ const CommentSection = () => {
 
 
     const LikeButton = (props) => {
+        /* Not functional yet */
         const [checked, setChecked] = useState(false);
-        const [amount, setAmount] = useState()
-       /*  useEffect( () => {
-            setAmount(props.likes.length);
-
-        }, [amount]) */
-
+        /* const [amount, setAmount] = useState() */
+        
         return (
 
             <ToggleButton
@@ -63,7 +59,7 @@ const CommentSection = () => {
                 value="1"
                 onChange={(e) => setChecked(e.currentTarget.checked)}
             >
-            <FcLike></FcLike> {amount}
+            <FcLike></FcLike> {0}
             </ToggleButton>           
         )
     }

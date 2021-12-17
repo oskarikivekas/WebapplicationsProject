@@ -1,5 +1,4 @@
 import { Modal, Button, Container, Row, Col, Form } from 'react-bootstrap';
-import { useState } from 'react';
 const InfoModal = (props) => {
     
     

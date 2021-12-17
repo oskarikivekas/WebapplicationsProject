@@ -14,6 +14,7 @@ const Register = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(false)
 
     
     const registerHandler = async (e) => {
@@ -35,9 +36,9 @@ const Register = () => {
         try {
             await axios.post("/api/auth/register", newUser)
             navigate('/login')
-        
+            
         } catch (err) {
-                console.log(err);
+                setError(true);
             }
 
 
@@ -91,6 +92,7 @@ const Register = () => {
                                 />
                                 
                             </Form.Group>
+                            <p>{error && "Incorrect information try again"}</p>
                             <Button type="submit" style={{width: '100%'}}>Register</Button>
                         </Form>
                     </Col>

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import NavBar from '../components/NavBar'
-import { useLocation, Navigate } from 'react-router'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { useLocation } from 'react-router'
+import { Container, Row, Col } from 'react-bootstrap'
 import Posts from '../components/Posts'
-import Footer from '../components/Footer'
 import './profile.css'
 import axios from 'axios'
 
