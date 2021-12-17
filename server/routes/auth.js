@@ -9,9 +9,6 @@ const passport = require('passport');
 const storage = multer.memoryStorage();
 const upload = multer({storage});
 
-
-
-
 var schema = new passwordValidator();
 schema
 .is().min(8)
@@ -40,10 +37,10 @@ router.post('/register',
         bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(req.body.password, salt, async (err, hash) => {
           var newUser = new User({
-            username: req.body.username,
+            username: req.body.username.toLowerCase(),
             email: req.body.email,
             password: hash,
-            profileImg: req.body.imgName
+            profileImg: req.body.profileImg,
           });
           await newUser.save();
           
@@ -68,7 +65,7 @@ router.post('/register',
 /* LOGIN POST */
 router.post('/login', body("username").trim().escape(), body("password").trim(), upload.none(), async (req, res, next) => {
 
-    var user = await User.findOne({username: req.body.username}).exec();
+    var user = await User.findOne({username: req.body.username.toLowerCase()}).exec();
     if (user == null) {
       return res.status(403).json({msg: "Invalid credentials"})
     }
@@ -85,7 +82,8 @@ router.post('/login', body("username").trim().escape(), body("password").trim(),
         
         const userdata = {
           username: user.username,
-          profileImg: user.profileImg
+          profileImg: user.profileImg,
+          bio: user.bio,
         }
         res.json({success: true, token, user: userdata});
   

@@ -10,8 +10,6 @@ import { useNavigate } from 'react-router-dom'
 import './postEditor.css'
 import axios from 'axios';
 
-/* NEEDS FIXING -> Logging out when in editormode tries to find user.username which is null.username causing fatal error. Fixing if time... may need some structural changes */
-
 const PostEditor = () => {
     const navigate = useNavigate();
     const {user} = useContext(Context);
@@ -24,7 +22,7 @@ const PostEditor = () => {
 
     useEffect(() => {   
         const getPost = async () => {
-            const res = await axios('/api/posts/'+ postId);
+            const res = await axios('/api/posts/single/'+ postId);
             setPost(res.data);
             setCode(res.data.code);
            
@@ -48,13 +46,14 @@ const PostEditor = () => {
                 "authorization": "Bearer " + localStorage.getItem('auth_token')
               }
         }
-        console.log(localStorage.getItem('auth_token'))
         try {
-            await axios.post('/api/posts', {
+            const res = await axios.post('/api/posts', {
                 title: title,
                 creator: user.username,
                 code: code,
             }, config )
+            const id = res.data._id;
+            navigate('/editor/'+id);
             
         } catch (err) {
             
@@ -72,6 +71,7 @@ const PostEditor = () => {
             {/* {post.creator === user.username && <Button onClick={deleteHandler}>Delete</Button>} */}
             <Row className="align-items-center" >
                 <Col className="m-2" xxl={3} lg={4} md={12} > 
+                    
                     {editormode ? 
                     (<TextareaAutosize style={{minWidth: "100vh", border: "none", resize: 'none'}} value={code} onChange={(e) => setCode(e.target.value)}/>)
                      : (<Editor code={code}></Editor>) }
@@ -81,19 +81,17 @@ const PostEditor = () => {
             </Row>
             <Row className="align-items-center">
                 <Col className="m-2" xxl={3} lg={4} md={12}>
-                {editormode  && <Button onClick={createHandler}>Post snippet</Button>}            
+                {(postId === "new" && user || post.creator === user?.username) && <Button onClick={handleEditor}>Toggle editor</Button>}
                 </Col>
                 <Col className="m-2" xxl={3} lg={4} md={12}>
-                {(postId === "new" && user || post.creator === user?.username) && <Button onClick={handleEditor}>Editor mode</Button>}
-                
+                {(postId === "new" && editormode)  && <Button variant="success" onClick={createHandler}>Post snippet</Button>}            
                 </Col>
-                
+                <Col className="m-2" xxl={3} lg={4} md={12}>
+                {editormode  && <Button variant="danger" onClick={deleteHandler}>Delete snippet</Button>}            
+                </Col>
             </Row>
-               
             
-            
-            
-            <Row className="">
+            <Row className="align-items-center">
                 <CommentSection likes={post.likes} ></CommentSection>
             </Row>
         </Container> 

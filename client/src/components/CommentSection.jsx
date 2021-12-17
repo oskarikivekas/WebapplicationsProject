@@ -1,21 +1,20 @@
 import { useContext, useEffect, useState } from 'react'
 import { useLocation } from "react-router";
 import { Context } from "../context/Context";
-import { Breadcrumb, ListGroup, ListGroupItem, ToggleButton, Button } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, ToggleButton, Button } from 'react-bootstrap'
 import {FcLike} from "react-icons/fc"
 import axios from 'axios';
 import Comment from './Comment'
 import TextareaAutosize from 'react-textarea-autosize'
 
 
-const CommentSection = (props) => {
+const CommentSection = () => {
     const {user} = useContext(Context);
     const location = useLocation();
     const postId = location.pathname.split('/')[2]
-    const likes = 12;
     const [text, setText] = useState('');
     const [comments, setComments] = useState([])
-
+    const likes = 12
     /* get comments */
     useEffect(() => {   
         const getComments = async () => {
@@ -49,10 +48,10 @@ const CommentSection = (props) => {
     const LikeButton = (props) => {
         const [checked, setChecked] = useState(false);
         const [amount, setAmount] = useState()
-        useEffect( () => {
+       /*  useEffect( () => {
             setAmount(props.likes.length);
 
-        }, [amount])
+        }, [amount]) */
 
         return (
 
@@ -78,12 +77,12 @@ const CommentSection = (props) => {
                 
              {comments.map( (comment) => (
                 
-                <ListGroupItem key={comment.id}>
+                <ListGroupItem key={comment._id}>
                     <Comment data={comment}> </Comment>
                 </ListGroupItem>
             ))} 
             <br />
-            <h2>Comment on post</h2>
+            {user &&<h2>Comment on post</h2>}
             {user && <TextareaAutosize style={{minWidth: "50vh", border: "none", resize: 'none'}} value={text} onChange={(e) => setText(e.target.value)}/>}
             {user && <Button onClick={submitComment}>Submit</Button>}
             </ListGroup>

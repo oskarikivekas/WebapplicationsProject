@@ -32,16 +32,18 @@ const storage = multer.diskStorage({
         cb(null, "images");
     }, 
     filename: (req, file, cb) => {
-        cb(null, "selfie lol.jpg");
+        cb(null, req.body.name);
     },
 
 });
 
 const upload = multer({ storage: storage });
+
 app.post("/api/upload", upload.single("file"), (req, res) => {
-    console.log("hello");
+    
   res.status(200).json("File has been uploaded");
 });
+
 
 
 

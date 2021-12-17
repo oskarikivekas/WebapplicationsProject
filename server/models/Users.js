@@ -19,6 +19,11 @@ const usersSchema = new mongoose.Schema({
         type: String,
         default: "",
         required: false
+    },
+    bio: {
+        type: String,
+        default: "This use has no bio yet",
+        required: false,
     }
 });
 

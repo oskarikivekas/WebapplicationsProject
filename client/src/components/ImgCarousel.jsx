@@ -11,8 +11,8 @@ const ImgCarousel = (props) => {
                 alt="First slide"
                 />
                 <Carousel.Caption>
-                <h5>Code everywhere you are</h5>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                <h3>Could be cool but now just annoying and ugly</h3>
+                
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -22,8 +22,8 @@ const ImgCarousel = (props) => {
                 alt="Second slide"
                 />
                 <Carousel.Caption>
-                <h5>Second slide label</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h3>Still annoying and ugly</h3>
+                
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -33,8 +33,8 @@ const ImgCarousel = (props) => {
                 alt="Third slide"
                 />
                 <Carousel.Caption>
-                <h5>Third slide label</h5>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                <h3>I dont even scale properly for mobile /::</h3>
+                
                 </Carousel.Caption>
             </Carousel.Item>
         </Carousel>

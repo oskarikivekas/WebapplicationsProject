@@ -1,11 +1,11 @@
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
 } from "react-router-dom";
 
-import React, { useState, useContext } from "react";
-import { Context } from './context/Context'
+import React from "react";
+
 
 import './app.css'
 import Login from './pages/Login'
@@ -15,9 +15,15 @@ import PostEditor from "./pages/PostEditor";
 import Profile from "./pages/Profile";
 import Unknownaddress from "./pages/UnknownAddress";
 import ProfileSelf from "./pages/ProfileSelf";
+import ProtectedRoutes from "./context/ProtectedRoutes";
 
 function App() {
-  const {user} = useContext(Context);
+  
+  /* To be added:
+    If user is not logged in when trying to access restricted content,
+    redirect to /login and use router history to redirect back to content
+  */
+
 
   return (
     <div className="App">
@@ -28,7 +34,7 @@ function App() {
           <Route path="/register" element={<Register /> }/>
           <Route path="/editor/:post" element={<PostEditor />}/> 
           <Route path="/profile/:id" element={<Profile />}/>
-          <Route path="/profile" element={<ProfileSelf />}/>
+          <Route path="/profile" element={<ProtectedRoutes> <ProfileSelf /> </ProtectedRoutes>}/>
           <Route path="*" element={<Unknownaddress />}></Route>      
         </Routes>
       </Router>

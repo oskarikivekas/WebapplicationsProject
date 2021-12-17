@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 import NavBar from '../components/NavBar'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import {Col, Button, Container, Row, Form} from 'react-bootstrap'
 import loginIcon from '../images/loginIcon.svg'
@@ -11,7 +11,7 @@ const Login = () => {
 
     const navigate = useNavigate();
     const {dispatch, fetching} = useContext(Context);
-
+    const { state } = useLocation();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -24,17 +24,12 @@ const Login = () => {
             })
             
             dispatch({type: "LOGIN_SUCCESS", payload: res.data});
-            navigate('/')
-            
+            navigate(state?.path || "/")
         
         } catch (err) {
             dispatch({type: "LOGIN_FAILED"});
         }
     }
-
-    /* Jaripekka
-        jp@gmail.com
-        Testi123! */
 
     return (
         <div className="loginPage">

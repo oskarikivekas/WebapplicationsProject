@@ -6,7 +6,7 @@ const { Post } = require('../models/Posts');
 const passport = require('passport');
 
 /* GET single post. */
-router.get('/:id', async function(req, res, next) {
+router.get('/single/:id', async function(req, res, next) {
   console.log(req.params.id);
   try {
     if(req.params.id == "new") {
@@ -33,7 +33,19 @@ router.get('/:id', async function(req, res, next) {
         res.status(500).json(err);
     }
  
-});
+}); 
+/* GET profile posts */
+router.get('/:username', async function(req, res, next) {
+
+
+  const posts = await Post.find({creator: req.params.username});
+  if (posts == null) {
+    res.json({msg: "empty"});
+  }else {
+    res.send(posts);
+  }
+}) 
+
 /* GET all posts */
 router.get('/', async function(req, res, next) {
 

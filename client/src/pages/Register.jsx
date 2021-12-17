@@ -6,22 +6,35 @@ import ImgCarousel from '../components/ImgCarousel'
 import loginIcon from '../images/loginIcon.svg'
 import img1 from '../images/pexels-negative-space-160107.jpg'
 import './register.css'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
+    const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [profileImg, setProfileImg] = useState("");
+
     
     const registerHandler = async (e) => {
         e.preventDefault();
 
+        const newUser = {
+            username, email, password
+        }
+        if (file) {
+            const data = new FormData();
+            const filename = Date.now() + file.name;
+            data.append("name", filename);
+            data.append("file", file);
+            newUser.profileImg = filename;
+            try {
+                await axios.post("/api/upload", data);
+            }catch (err) { }      
+        }
         try {
-            const res = await axios.post("/api/auth/register", {
-                username, email, password, profileImg
-            })
-            res.data && window.location.replace("/login");
+            await axios.post("/api/auth/register", newUser)
+            navigate('/login')
         
         } catch (err) {
                 console.log(err);

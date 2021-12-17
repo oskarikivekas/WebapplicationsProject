@@ -1,5 +1,4 @@
 import React from 'react'
-import { Navbar, Container, Nav } from 'react-bootstrap'
 import './css/footer.css'
 const Footer = () => {
     return (
@@ -9,15 +8,23 @@ const Footer = () => {
                 <div className="row">
                     {/* column1 */}
                     <div className="col">
-                        <h4>Yeet</h4>
+                        <h4>Hyvää infoa jos sellaista olisi</h4>
+                        <ul>
+                            <li></li>
+                            <li></li>
+                        </ul>
                     </div>
                     <div className="col">
-                        <h4>Yeet 2</h4>
+                        <h4>Vaikka linkkejä tms</h4>
+                        <ul>
+                            <li></li>
+                            <li></li>
+                        </ul>
                     </div>
                 </div>
                 <hr />
                 <div className="row">
-                    <p className="col-sm">&copy; Codehub by Oskari Kivekäs 2021 </p>
+                    <p className="col-sm">&copy; CodeDiary by Oskari Kivekäs 2021 </p>
                     <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>                </div>
                 <br></br>
             </div>
