@@ -1,10 +1,5 @@
-.text-editor {
-  min-height: 50vh;
-  margin-top: 15px;
-}
-
 .editor {
   background-color: rgb(255, 255, 255);
-  padding: 8px;
+  padding: 25px;
   margin-bottom: 2rem;
 }

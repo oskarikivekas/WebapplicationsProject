@@ -83,7 +83,7 @@ const CommentSection = () => {
             ))} 
             <br />
             {user &&<h2>Comment on post</h2>}
-            {user && <TextareaAutosize style={{minWidth: "50vh", border: "none", resize: 'none'}} value={text} onChange={(e) => setText(e.target.value)}/>}
+            {user && <textarea  value={text} onChange={(e) => setText(e.target.value)}/>}
             {user && <Button onClick={submitComment}>Submit</Button>}
             </ListGroup>
         </>

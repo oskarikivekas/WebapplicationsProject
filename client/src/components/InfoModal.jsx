@@ -2,7 +2,7 @@ import { Modal, Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { useState } from 'react';
 const InfoModal = (props) => {
     
-    /* UPDATE PROFILEDATA */
+    
 
     return (
             <Modal fullscreen='sm-down' show={props.show} backdrop="static" onHide={props.handleShow}>

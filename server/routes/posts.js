@@ -64,7 +64,6 @@ router.get('/', async function(req, res, next) {
 router.post('/', passport.authenticate('jwt', {session: false}), async (req, res) => {
   
   const newPost = new Post(req.body);
-  /* ADD: if (req.body.user == req.user -> then ok, so impersonating another user doesnt work by modifying the request) */
 
   try {
      const post = await newPost.save();
@@ -76,33 +75,51 @@ router.post('/', passport.authenticate('jwt', {session: false}), async (req, res
 });
 
 /* UPDATE post */
-/* router.put('/', passport.authenticate('jwt', {session: false}), async (req, res) => {
-  const newPost = new Post(req.body);
+ router.put('/:id', passport.authenticate('jwt', {session: false}), async (req, res) => {
+  
   try {
-     const post = await newPost.save();
-     res.status(201).json(post);
+    const post = await Post.findById(req.params.id);
+    if (post.creator == req.user.username) {
+      console.log(post)
+      try {
+        const updated = await Post.findByIdAndUpdate( 
+          req.params.id,
+          {
+            $set: {code: req.body.code,}
+          },
+          {new: true}
+        );
+        res.status(201).json(updated);
 
+      } catch (err) {
+        console.log(err)
+        res.status(500).json(err);
+      }
+    }
   } catch (err) {
     res.status(400).json(err);
   }
-}); */
-
+}); 
 
 /* DELETE post */
-/* router.delete('/:id', passport.authenticate('jwt', {session: false}), async (req, res) => {
-  console.log(req.body);
-  ADD: if (req.body.user == req.user -> then ok, so impersonating another user doesnt work by modifying the request) 
+router.delete('/:id', passport.authenticate('jwt', {session: false}), async (req, res) => {
 
   try {
-     const post = await newPost.save();
-     res.status(201).json(post);
+     const post = await Post.findById(req.params.id);
+     if (post.creator == req.user.username) {
+       try {
+         await post.delete();
+         res.json("Post deleted");
+       } catch (err) {}
+        res.status(500).json(err)
+     }
 
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-*/
+
 /* GET comments */
 router.get('/comments/:id', async function(req, res, next) {
   try {
