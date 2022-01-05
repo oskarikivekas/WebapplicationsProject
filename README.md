@@ -17,4 +17,4 @@ Simplest way is to open two terminals in the root folder (WebapplicationsProject
 
 # Notes
 1. Client will run in port 3000 and server in port 5000 by default
-#Note that this is a production version, not a built version
+#Note that this is a development version, not a built version
